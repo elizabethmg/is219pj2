@@ -55,15 +55,29 @@ mRequest.onreadystatechange = function() {
 			 } 
 		} 
 }; 
+mRequest.open("GET",mURL, true); 
+mRequest.send();
 
 
 // Array holding GalleryImage objects (see below).
-var mImages = [];
+var mImages = [[images:0]];
 
 // Holds the retrived JSON information
 var mJson;
-mRequest.open("GET",mURL, true); 
-mRequest.send();
+function getQueryParams(qs) {     
+	qs = qs.split("+").join(" ");     
+	var params = {},         
+		tokens,         
+		re = /[?&]?([^=]+)=([^&]*)/g;     
+
+	while (tokens = re.exec(qs)) {         
+		params[decodeURIComponent(tokens[1])]             
+		= decodeURIComponent(tokens[2]);    
+	}     
+	return params; 
+} 
+var $_GET = getQueryParams(document.location.search);
+
 
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
@@ -92,10 +106,12 @@ window.addEventListener('load', function() {
 
 }, false);
 
-function GalleryImage(location, description, date, img) {
+function GalleryImage(location, description, date , img) {
 	//implement me as an object to hold the following data about an image:
 	this.location=location;//1. location where photo was taken
 	this.description=description;//2. description of photo
 	this.date=date;//3. the date when the photo was taken
 	this.imgage=img;//4. either a String (src URL) or an an HTMLImageObject (bitmap of the photo. https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
 }
+
+
