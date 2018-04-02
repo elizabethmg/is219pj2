@@ -31,17 +31,50 @@ function animate() {
 }
 
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
+function getQueryParams(qs) {     
+	qs = qs.split("+").join(" ");     
+	var params = {},         
+		tokens,         
+		re = /[?&]?([^=]+)=([^&]*)/g;     
+
+	while (tokens = re.exec(qs)) {         
+		params[decodeURIComponent(tokens[1])]             
+		= decodeURIComponent(tokens[2]);    
+	}     
+	return params; 
+} 
+var $_GET = getQueryParams(document.location.search);
+
+var mUrl = "images.json";
+if($_GET["json"] != undefined){
+	mURL = $_GET["json"];
+}
+
+// Counter for the mImages array
+var mCurrentIndex = 0;
 
 function swapPhoto() {
 	//Add code here to access the #slideShow element.
 	//Access the img element and replace its source
 	//with a new image from your images array which is loaded 
 	//from the JSON string
+	$('#photo').attr("src",mImages[mCurrentIndex].image);
+	$('.location').text('Location: '+ mImages[mCurrentIndex].location);
+	$('.description').text('Description: '+ mImages[mCurrentIndex].description);
+	$('.date').text('Date: '+ mImages[mCurrentIndex].date);
+	mCurrentIndex++;
+
+	if(mCurrentIndex >= mImages.length){
+		mCurrentIndex=0;
+	}
+
 	console.log('swap photo');
 }
 
-// Counter for the mImages array
-var mCurrentIndex = 0;
+
+var mJson;
+
+
 
 // XMLHttpRequest variable
 var mRequest = new XMLHttpRequest();
@@ -62,7 +95,7 @@ mRequest.onreadystatechange = function() {
 			 } 
 		} 
 }; 
-
+var mURL = 'images.json';
 mRequest.open("GET",mURL, true); 
 mRequest.send();
 
@@ -71,27 +104,10 @@ mRequest.send();
 var mImages = [GalleryImage];
 
 // Holds the retrived JSON information
-var mJson;
-function getQueryParams(qs) {     
-	qs = qs.split("+").join(" ");     
-	var params = {},         
-		tokens,         
-		re = /[?&]?([^=]+)=([^&]*)/g;     
 
-	while (tokens = re.exec(qs)) {         
-		params[decodeURIComponent(tokens[1])]             
-		= decodeURIComponent(tokens[2]);    
-	}     
-	return params; 
-} 
-var $_GET = getQueryParams(document.location.search);
 
 // console.log($_GET["json"]); 
 
-var mUrl = 'images.json';
-if($_GET["json"] != ""){
-	mURL = $_GET["json"]
-}
 
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
@@ -107,9 +123,12 @@ function makeGalleryImageOnloadCallback(galleryImage) {
 }
 
 $(document).ready( function() {
-	
 	// This initially hides the photos' metadata information
 	$('.details').eq(0).hide();
+
+	$('#nextPhoto').click(function(){
+		swapPhoto();
+	});
 	
 });
 
@@ -145,4 +164,4 @@ function GalleryImage(location, description, date , img) {
 // });
 // };
 
-$(document).ready(main);
+
