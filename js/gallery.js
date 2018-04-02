@@ -45,7 +45,10 @@ function getQueryParams(qs) {
 } 
 var $_GET = getQueryParams(document.location.search);
 
-var mUrl = "images.json";
+// URL for the JSON to load by default
+// Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
+var mURL = "images.json";
+
 if($_GET["json"] != undefined){
 	mURL = $_GET["json"];
 }
@@ -71,10 +74,10 @@ function swapPhoto() {
 	console.log('swap photo');
 }
 
-
+// Holds the retrived JSON information
 var mJson;
-
-
+// Array holding GalleryImage objects (see below).
+var mImages = [];
 
 // XMLHttpRequest variable
 var mRequest = new XMLHttpRequest();
@@ -95,23 +98,11 @@ mRequest.onreadystatechange = function() {
 			 } 
 		} 
 }; 
-var mURL = 'images.json';
+
 mRequest.open("GET",mURL, true); 
 mRequest.send();
 
-
-// Array holding GalleryImage objects (see below).
-var mImages = [GalleryImage];
-
-// Holds the retrived JSON information
-
-
 // console.log($_GET["json"]); 
-
-
-// URL for the JSON to load by default
-// Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
-
 
 //You can optionally use the following function as your event callback for loading the source of Images from your json data (for HTMLImageObject).
 //@param A GalleryImage object. Use this method for an event handler for loading a gallery Image object (optional).
@@ -129,7 +120,23 @@ $(document).ready( function() {
 	$('#nextPhoto').click(function(){
 		swapPhoto();
 	});
-	
+	$('#prevPhoto').click(function(){
+		if(mCurrentIndex == 0){
+			mCurrentIndex=mImages.length-2;
+		}
+		else if(mCurrentIndex==1){
+			mCurrentIndex=mImages.length-1;
+		}
+		else{
+			mCurrentIndex-=2;
+		}
+		swapPhoto();
+	})
+	$('.moreIndicator').click(function(){
+		$("img.rot90").toggleClass("rot270", 3000)
+		$('.details').slideToggle(1000);
+	})
+
 });
 
 window.addEventListener('load', function() {
@@ -145,23 +152,3 @@ function GalleryImage(location, description, date , img) {
 	this.date=date;//3. the date when the photo was taken
 	this.img=img;//4. either a String (src URL) or an an HTMLImageObject (bitmap of the photo. https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
 }
-
-// var main=function(){
-// $(".moreIndicator").click(function(){
-//     $(this).toggleClass('.details');
-// });
-// };
-
-// var main=function(){
-// $("#nextPhoto").click(function(){
-//    $(''). ();
-// });
-// };
-
-// var main=function(){
-// $("#prevPhoto").click(function(){
-//    $(''). ();
-// });
-// };
-
-
