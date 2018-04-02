@@ -34,6 +34,9 @@ body {
 	opacity: .8;
 	top: 0px;
 }
+.moreIndicator:hover {   
+	opacity: .7; 
+}
 
 .thumbnail {
 	position: relative;
@@ -49,6 +52,9 @@ body {
 #nav {
 	clear: both;
 	position: relative;
+}
+#nav:hover {   
+	opacity: .8; 
 }
 
 #prevPhoto {
