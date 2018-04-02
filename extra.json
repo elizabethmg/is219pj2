@@ -1,0 +1,34 @@
+{
+    "images": [
+        {
+            "imgPath": "img/explaces/california.jpg",
+            "imgLocation": "California",
+            "description": "Palm Trees",
+            "date": "02/01/2018"
+        },
+        {
+            "imgPath": "img/explaces/florida.jpg",
+            "imgLocation": "Florida",
+            "description": "Welcome Sign",
+            "date": "02/01/2018"
+        },
+        {
+            "imgPath": "img/explaces/jerseyshore.jpg",
+            "imgLocation": "Jersey Shore",
+            "description": "Jersey Shore hotel",
+            "date": "02/01/2018"
+        },
+        {
+            "imgPath": "img/exlaces/nebraska.jpg",
+            "imgLocation": "Nebraska",
+            "description": "Nebraska Land",
+            "date": "02/01/2018"
+        },
+        {
+            "imgPath": "img/explaces/washington.jpg",
+            "imgLocation": "Washington",
+            "description": "Capitol Building",
+            "date": "02/01/2018"
+        },
+  ]
+}
