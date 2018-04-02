@@ -48,19 +48,27 @@ var mRequest = new XMLHttpRequest();
 mRequest.onreadystatechange = function() {  
 		if (mRequest.readyState == 4 && mRequest.status == 200) {
 			try { 
-			mJson = JSON.parse(mRequest.responseText); 
-			console.log(mJson); 
+				mJson=JSON.parse(mRequest.responseText);
+
+			 for(var i=0; i<mJson.images.length; i++){
+			 	var myLine=mJson.images[i];
+			 	mImages.push(new GalleryImage(myLine.imgLocation, myLine.description, myLine.date, myLine.imgPath));
+			 }
+
+			console.log(mImages); 
 		} catch(err) { 
-			console.log(err.message)
+			console.log(err.message+" in "+ mRequest.responseText);
+			return;
 			 } 
 		} 
 }; 
+
 mRequest.open("GET",mURL, true); 
 mRequest.send();
 
 
 // Array holding GalleryImage objects (see below).
-var mImages = [imgpath[0]];
+var mImages = [GalleryImage];
 
 // Holds the retrived JSON information
 var mJson;
@@ -78,11 +86,16 @@ function getQueryParams(qs) {
 } 
 var $_GET = getQueryParams(document.location.search);
 
+// console.log($_GET["json"]); 
+
+var mUrl = 'images.json';
+if($_GET["json"] != ""){
+	mURL = $_GET["json"]
+}
 
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
-var mUrl = 'images.json';
-var mUrl = 'extra.json';
+
 
 //You can optionally use the following function as your event callback for loading the source of Images from your json data (for HTMLImageObject).
 //@param A GalleryImage object. Use this method for an event handler for loading a gallery Image object (optional).
@@ -111,7 +124,25 @@ function GalleryImage(location, description, date , img) {
 	this.location=location;//1. location where photo was taken
 	this.description=description;//2. description of photo
 	this.date=date;//3. the date when the photo was taken
-	this.imgage=img;//4. either a String (src URL) or an an HTMLImageObject (bitmap of the photo. https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
+	this.img=img;//4. either a String (src URL) or an an HTMLImageObject (bitmap of the photo. https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
 }
 
+// var main=function(){
+// $(".moreIndicator").click(function(){
+//     $(this).toggleClass('.details');
+// });
+// };
 
+// var main=function(){
+// $("#nextPhoto").click(function(){
+//    $(''). ();
+// });
+// };
+
+// var main=function(){
+// $("#prevPhoto").click(function(){
+//    $(''). ();
+// });
+// };
+
+$(document).ready(main);
