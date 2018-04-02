@@ -48,6 +48,7 @@ var $_GET = getQueryParams(document.location.search);
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
 var mURL = "images.json";
+var mURL = "extra.json";
 
 if($_GET["json"] != undefined){
 	mURL = $_GET["json"];
