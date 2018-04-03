@@ -48,7 +48,7 @@ var $_GET = getQueryParams(document.location.search);
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
 var mURL = "images.json";
-var mURL = "extra.json";
+// var mURL = "extra.json";
 
 if($_GET["json"] != undefined){
 	mURL = $_GET["json"];
@@ -62,7 +62,7 @@ function swapPhoto() {
 	//Access the img element and replace its source
 	//with a new image from your images array which is loaded 
 	//from the JSON string
-	$('#photo').attr("src",mImages[mCurrentIndex].image);
+	$('#photo').attr("src",mImages[mCurrentIndex].img);
 	$('.location').text('Location: '+ mImages[mCurrentIndex].location);
 	$('.description').text('Description: '+ mImages[mCurrentIndex].description);
 	$('.date').text('Date: '+ mImages[mCurrentIndex].date);
